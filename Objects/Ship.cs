@@ -7,5 +7,6 @@
         public int Turrets { get; set; }
         public int Armor { get; set; }
         public int HP { get; set; }
+        //public string Icon { get; set; } chyba zbędne
     }
 }
