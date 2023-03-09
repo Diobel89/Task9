@@ -10,5 +10,17 @@
         public int Armor { get; set; }
         public int HP { get; set; }
         //public int MaxSpeed { get; set; }
+        public int MaxTurrets()
+        {
+            return 4;
+        }
+        public int MaxArmor()
+        {
+            return 50;
+        }
+        public int MaxHP()
+        {
+            return 255;
+        }
     }
 }

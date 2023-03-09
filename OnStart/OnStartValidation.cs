@@ -1,4 +1,7 @@
-﻿using Task9.InputOutputSystem.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
+using Task9.InputOutputSystem.Interface;
 using Task9.Models;
 
 namespace Task9.OnStart
@@ -6,11 +9,37 @@ namespace Task9.OnStart
     public class OnStartValidation
     {
         private readonly IOutput output;
+        private DatabaseContext context;
         public OnStartValidation(IOutput output)
         {
             this.output = output;
+            this.context = new DatabaseContext();
         }
+        public void CheckIsDatabaseExistent()
+        {
 
+            if (!context.Database.CanConnect())
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                output.ShowMessage("Brak bazy danych... tworzenie nowej ... proszę czekać");
+                Console.ResetColor();
+                CreateDatabase();
+                Run();
+                Console.ForegroundColor = ConsoleColor.Green;
+                output.ShowMessage("Baza została utworzona.");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                output.ShowMessage("Database exists!");
+                Console.ResetColor();
+            }    
+        }
+        private void CreateDatabase()
+        {
+            context.Database.EnsureCreated();
+        }
         public void Run()
         {
             ValidateGunDatabase();

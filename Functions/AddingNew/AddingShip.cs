@@ -9,9 +9,10 @@ namespace Task9.Functions
     {
         private readonly IInput input;
         private readonly IOutput output;
-        public AddingShip(IInput input)
+        public AddingShip(IInput input, IOutput output)
         {
             this.input = input;
+            this.output = output;
         }
         public void Add()
         {

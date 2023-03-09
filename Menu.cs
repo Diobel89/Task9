@@ -4,6 +4,8 @@ using Task9.Validation;
 using Task9.Models.Context;
 using Task9.Models;
 using Task9.View;
+using Task9.Factory;
+using Task9.Functions;
 
 namespace Task9
 {
@@ -104,11 +106,11 @@ namespace Task9
         }
         private void ExecuteCase1()
         {
-            
+            new AddingShip(input, output).Add();
         }
         private void ExecuteCase2()
         {
-            
+            new AddingGun(input).Add();
         }
         private void ExecuteCase3()
         {
@@ -120,11 +122,12 @@ namespace Task9
         }
         private void ExecuteCase4()
         {
-            using (var db = new GunRepository())
-            {
-                var gunList = db.GetAllGuns();
-                new GunDisplay(output).DisplayAll((List<Gun>)gunList);
-            }
+            //using (var db = new GunRepository())
+            //{
+            //    var gunList = db.GetAllGuns();
+            //    new GunDisplay(output).DisplayAll((List<Gun>)gunList);
+            //}
+            new GunDisplay(output).GetList();
         }
         private void ExecuteCase5()
         {

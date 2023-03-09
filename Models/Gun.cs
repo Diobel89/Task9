@@ -10,5 +10,21 @@
         public int Armor { get; set; }
         public int HP { get; set; }
         public bool State { get; set; } // true = nie uszkodzona, false = zniszczona, zniszczona gdy HP = 0
+        public int MaxArmor()
+        {
+            return 50;
+        }
+        public int MaxHP()
+        {
+            return 255;
+        }
+        public int MaxDamage()
+        {
+            return 255;
+        }
+        public int MaxBarrels()
+        {
+            return 3;
+        }
     }
 }
