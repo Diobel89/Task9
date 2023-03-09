@@ -1,26 +1,40 @@
 ﻿using Task9.InputOutputSystem.Interface;
+using Task9.Validation;
 
 namespace Task9.InputOutputSystem
 {
     public class Input : IInput
     {
-        private readonly IOutput _output;
+        private readonly IOutput output;
         public Input()
         {
-            _output = new Output();
+            output = new Output();
         }
         public string GetStringValue(string message)
         {
-            _output.ShowMessage(message);
+            output.ShowMessage(message);
             string tempInput = Console.ReadLine();
             return tempInput;
         }
         public int GetIntValue(string message)
         {
-            int intOut;
-            _output.ShowMessage(message);
+            bool isParsable = false;
+            int intOut = 0;
+            output.ShowMessage(message);
             string tempInput = Console.ReadLine();
-            intOut = int.Parse(tempInput);
+            while (!isParsable)
+            {
+                isParsable = new Validate().Int(tempInput);
+                if (!isParsable)
+                {
+                    output.ShowMessage("To nie liczba!");
+                }else
+                {
+                    intOut = int.Parse(tempInput);
+                    return intOut;
+                }
+            }
+
             return intOut;
         }
     }

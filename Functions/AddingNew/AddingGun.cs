@@ -17,7 +17,7 @@ namespace Task9.Functions
             using (var gunRepo = new GunRepository())
             {
                 Gun gun = new GunFactory(input).Create();
-                gunRepo.AddShip(gun);
+                //gunRepo.AddShip(gun);
                 gunRepo.Save();
             }
         }

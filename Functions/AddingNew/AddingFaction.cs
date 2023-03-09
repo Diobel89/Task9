@@ -17,8 +17,8 @@ namespace Task9.Functions
             using (var factionRepo = new FactionRepository())
             {
                 Faction faction = new FactionFactory(input).Create();
-                faction.AddFaction(faction);
-                faction.Save();
+                //faction.AddFaction(faction);
+                //faction.Save();
             }
         }
     }

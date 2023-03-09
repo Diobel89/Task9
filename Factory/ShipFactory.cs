@@ -37,6 +37,12 @@ namespace Task9.Factory
         }
         private int GetFactionID()
         {
+            using (var db = new FactionRepository())
+            {
+                var factionList = db.GetAllFactions();
+                new FactionDisplay(output).DisplayAll((List<Faction>)factionList);
+            }
+            FactionId = input.GetIntValue("Wybierz Id frakcji:");
             return FactionId;
         }
         private string GetShipName()

@@ -20,8 +20,8 @@ namespace Task9.View
         private void Display(Faction faction)
         {
             var info = string.Join(" ", "ID: [" + faction.Id
-                + "]" + "Name: [" + faction.Name
-                + "]" + "Icon: [" + faction.Icon
+                + "]" + " Name: [" + faction.Name
+                + "]" + " Icon: [" + faction.Icon
                 + "]");
             output.ShowMessage(info);
         }

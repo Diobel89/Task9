@@ -21,11 +21,12 @@ namespace Task9.View
         private void Display(Gun gun)
         {
             var info = string.Join(" ", "ID: [" + gun.Id 
-                + "]" + "Name: [" + gun.Name
-                + "]" + "Barrels: [" + gun.Barrels
-                + "]" + "Damage: [" + gun.Damage
-                + "]" + "Armor: [" + gun.Armor
-                + "]" + "HP: [" + gun.HP);
+                + "]" + " Name: [" + gun.Name
+                + "]" + " Barrels: [" + gun.Barrels
+                + "]" + " Damage: [" + gun.Damage
+                + "]" + " Armor: [" + gun.Armor
+                + "]" + " HP: [" + gun.HP
+                + "]");
             output.ShowMessage(info);
         }
     }
