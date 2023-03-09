@@ -1,9 +1,11 @@
-﻿namespace Task9.Objects
+﻿namespace Task9.Models
 {
     public class Gun
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int Caliber { get; set; }
+        //public int Caliber { get; set; }
+        public int Barrels { get; set; }
         public int Damage { get; set; }
         public int Armor { get; set; }
         public int HP { get; set; }
