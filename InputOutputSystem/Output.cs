@@ -12,5 +12,9 @@ namespace Task9.InputOutputSystem
         {
             Console.WriteLine(message);
         }
+        public void ShowInt(int value)
+        {
+            Console.WriteLine(value);
+        }
     }
 }

@@ -4,5 +4,6 @@
     {
         public void CleanScreen();
         public void ShowMessage(string message);
+        public void ShowInt(int value);
     }
 }

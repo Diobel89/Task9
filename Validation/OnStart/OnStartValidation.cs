@@ -1,10 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-using Task9.InputOutputSystem.Interface;
+﻿using Task9.InputOutputSystem.Interface;
 using Task9.Models;
 
-namespace Task9.OnStart
+namespace Task9.Validation.OnStart
 {
     public class OnStartValidation
     {

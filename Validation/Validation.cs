@@ -1,5 +1,4 @@
-﻿using Task9.Factory;
-using Task9.Models;
+﻿using Task9.Models;
 
 namespace Task9.Validation
 {
@@ -19,7 +18,7 @@ namespace Task9.Validation
         }
         public bool MaxGunArmor(int armor)
         {
-            tempInt = new Gun().MaxArmor();
+            tempInt = new Gun().GetMaxArmor();
             if (armor <= tempInt && armor > 0)
             {
                 return true;
@@ -34,7 +33,7 @@ namespace Task9.Validation
         }
         public bool MaxGunHP(int hp)
         {
-            tempInt = new Gun().MaxHP();
+            tempInt = new Gun().GetMaxHP();
             if (hp <= tempInt && hp > 0)
             {
                 return true;
@@ -49,7 +48,7 @@ namespace Task9.Validation
         }
         public bool MaxGunBarrels(int barrels)
         {
-            tempInt = new Gun().MaxBarrels();
+            tempInt = new Gun().GetMaxBarrels();
             if (barrels <= tempInt && barrels > 0)
             {
                 return true;
@@ -64,7 +63,7 @@ namespace Task9.Validation
         }
         public bool MaxGunDamage(int damage)
         {
-            tempInt = new Gun().MaxDamage();
+            tempInt = new Gun().GetMaxDamage();
             if (damage <= tempInt && damage > 0)
             {
                 return true;
@@ -79,7 +78,7 @@ namespace Task9.Validation
         }
         public bool MaxShipTurrets(int turrets)
         {
-            tempInt = new Ship().MaxTurrets();
+            tempInt = new Ship().GetMaxTurrets();
             if (turrets <= tempInt && turrets > 0)
             {
                 return true;
@@ -94,7 +93,7 @@ namespace Task9.Validation
         }
         public bool MaxShipHP(int hp)
         {
-            tempInt = new Ship().MaxHP();
+            tempInt = new Ship().GetMaxHP();
             if (hp <= tempInt && hp > 0)
             {
                 return true;
@@ -109,7 +108,7 @@ namespace Task9.Validation
         }
         public bool MaxShipArmor(int armor)
         {
-            tempInt = new Ship().MaxArmor();
+            tempInt = new Ship().GetMaxArmor();
             if (armor <= tempInt && armor > 0)
             {
                 return true;
@@ -118,6 +117,50 @@ namespace Task9.Validation
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Najwyższa wartość to: " + tempInt);
+                Console.ResetColor();
+                return false;
+            }
+        }
+        public bool MaxShipId(int userInput)
+        {
+            tempInt = new Ship().GetMaxId();
+            if (userInput <= tempInt && userInput >= 0)
+            {
+                return true;
+            }else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Brak ID");
+                Console.ResetColor();
+                return false;
+            }
+        }
+        public bool MaxGunId(int userInput)
+        {
+            tempInt = new Gun().GetMaxId();
+            if (userInput <= tempInt && userInput >= 0)
+            {
+                return true;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Brak ID");
+                Console.ResetColor();
+                return false;
+            }
+        }
+        public bool MaxFactionId(int userInput)
+        {
+            tempInt = new Faction().GetMaxId();
+            if (userInput <= tempInt && userInput >= 0)
+            {
+                return true;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Brak ID");
                 Console.ResetColor();
                 return false;
             }

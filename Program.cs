@@ -1,7 +1,7 @@
 ﻿using Task9;
 using Task9.InputOutputSystem;
 using Task9.InputOutputSystem.Interface;
-using Task9.OnStart;
+using Task9.Validation.OnStart;
 
 Console.WriteLine("Welcom in hellish task9!");
 

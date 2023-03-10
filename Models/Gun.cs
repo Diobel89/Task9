@@ -10,21 +10,28 @@
         public int Armor { get; set; }
         public int HP { get; set; }
         public bool State { get; set; } // true = nie uszkodzona, false = zniszczona, zniszczona gdy HP = 0
-        public int MaxArmor()
+        public int GetMaxArmor()
         {
             return 50;
         }
-        public int MaxHP()
+        public int GetMaxHP()
         {
             return 255;
         }
-        public int MaxDamage()
+        public int GetMaxDamage()
         {
             return 255;
         }
-        public int MaxBarrels()
+        public int GetMaxBarrels()
         {
             return 3;
+        }
+        public int GetMaxId()
+        {
+            using (var db = new DatabaseContext())
+            {
+                return db.Guns.Count();
+            }
         }
     }
 }

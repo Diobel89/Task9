@@ -17,7 +17,7 @@ namespace Task9.View
             using (var db = new GunRepository())
             {
                 var gunList = db.GetAllGuns();
-                new GunDisplay(output).DisplayAll((List<Gun>)gunList);
+                DisplayAll((List<Gun>)gunList);
             }
         }
         public void DisplayAll(List<Gun> gunList)
