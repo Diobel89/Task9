@@ -54,7 +54,6 @@ namespace Task9.Validation.OnStart
                 {
                     db.Guns.Add(new Gun { Name = "Railgun", Armor = 100, Barrels = 1, Damage = 9999, HP = 9999, State = true });
                     db.SaveChanges();
-                    //return true;
                 }
             }
         }
@@ -64,7 +63,6 @@ namespace Task9.Validation.OnStart
             {
                 if (db.Factions.Any())
                 {
-                    //return true;
                 }else
                 {
                     db.Factions.Add(new Faction { Name = "Iron Blood", Icon = "IB" });
@@ -78,7 +76,6 @@ namespace Task9.Validation.OnStart
                     db.Factions.Add(new Faction { Name = "Vichya Dominion", Icon = "VD" });
                     db.Factions.Add(new Faction { Name = "Sardegna Empire", Icon = "SaE" });
                     db.SaveChanges();
-                    //return true;
                 }
             }
         }
@@ -88,7 +85,6 @@ namespace Task9.Validation.OnStart
             {
                 if (db.Ships.Any())
                 {
-                    //return true;
                 }else
                 {
                     db.Ships.Add(new Ship { Name = "Prinz Eugen", Armor = 9999, HP = 9999, GunId = 1, FactionId = 1, Turrets = 4});
