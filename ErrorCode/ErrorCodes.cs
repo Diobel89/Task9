@@ -1,5 +1,4 @@
 ﻿using Task9.InputOutputSystem.Interface;
-
 namespace Task9.ErrorCode
 {
     public class ErrorCodes
@@ -9,7 +8,6 @@ namespace Task9.ErrorCode
         {
             this.output = output;
         }
-
         public void Message(int errorCode)
         {
             Console.BackgroundColor = ConsoleColor.Red;

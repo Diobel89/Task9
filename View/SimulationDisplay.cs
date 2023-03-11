@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task9.Factory
+namespace Task9.View
 {
-    internal class ShipsFactory
+    internal class SimulationDisplay
     {
     }
 }

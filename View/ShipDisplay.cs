@@ -1,4 +1,5 @@
-﻿using Task9.Functions.Simulation;
+﻿using Microsoft.EntityFrameworkCore;
+using Task9.Functions.Simulation;
 using Task9.InputOutputSystem.Interface;
 using Task9.Models;
 using Task9.Models.Context;

@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream
-﻿namespace Task9
-{
-    public class Menu
-    {
-=======
 ﻿using Task9.Parse;
 using Task9.InputOutputSystem.Interface;
 using Task9.Validation;
@@ -140,6 +134,5 @@ namespace Task9
             //new Symulation(input, output).Run();
             new GatherData(input, output).Run();
         }
->>>>>>> Stashed changes
     }
 }

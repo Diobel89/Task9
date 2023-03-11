@@ -24,7 +24,6 @@ namespace Task9.Functions.Simulation
         }
         private void SetNumberOfShips()
         {
-            int tempInt1, tempInt2;
             int numberOfShips;
             for (FleetNumber = 1; FleetNumber < 3; FleetNumber++)
             {

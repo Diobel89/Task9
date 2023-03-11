@@ -46,6 +46,7 @@ namespace Task9.Models
             }
             return tempShip;
         }
+
         public bool CheckIdExists(int id)
         {
             using (var db = new DatabaseContext())
