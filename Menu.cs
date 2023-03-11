@@ -6,6 +6,7 @@ using Task9.Models;
 using Task9.View;
 using Task9.Factory;
 using Task9.Functions;
+using Task9.Functions.Simulation;
 
 namespace Task9
 {
@@ -114,19 +115,10 @@ namespace Task9
         }
         private void ExecuteCase3()
         {
-            using (var db = new ShipRepository())
-            {
-                var shipList = db.GetAllShips();
-                new ShipDisplay(output).DisplayAll((List<Ship>) shipList);
-            }
+            new ShipDisplay(output).GetList();
         }
         private void ExecuteCase4()
         {
-            //using (var db = new GunRepository())
-            //{
-            //    var gunList = db.GetAllGuns();
-            //    new GunDisplay(output).DisplayAll((List<Gun>)gunList);
-            //}
             new GunDisplay(output).GetList();
         }
         private void ExecuteCase5()
@@ -139,9 +131,8 @@ namespace Task9
         }
         private void ExecuteCase6()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            output.ShowMessage("In Development");
-            Console.ResetColor();
+            //new Symulation(input, output).Run();
+            new GatherData(input, output).Run();
         }
     }
 }

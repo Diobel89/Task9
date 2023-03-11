@@ -1,9 +1,13 @@
-﻿using System.ComponentModel;
-
+﻿using Task9.InputOutputSystem.Interface;
 namespace Task9.ErrorCode
 {
     public class ErrorCodes
     {
+        private readonly IOutput output;
+        public ErrorCodes(IOutput output)
+        {
+            this.output = output;
+        }
         public void Message(int errorCode)
         {
             Console.BackgroundColor = ConsoleColor.Red;
@@ -57,35 +61,35 @@ namespace Task9.ErrorCode
         }
         private void NoError()
         {
-            Console.WriteLine("All Green!");
+            output.ShowMessage("AllGreen");
         }
         private void Error001()
         {
-            Console.WriteLine("Error 001!"); // error for incorect int (input is not int)
+            output.ShowMessage("Error 001!"); // error for incorect int (input is not int)
         }
         private void Error002()
         {
-            Console.WriteLine("Error 002!"); // int too large or too small
+            output.ShowMessage("Error 002!"); // int too large or too small
         }
         private void Error003()
         {
-            Console.WriteLine("Error 003!"); // no record in database
+            output.ShowMessage("Error 003!"); // no record in database
         }
         private void Error004()
         {
-            Console.WriteLine("Error 004!"); // for empty string
+            output.ShowMessage("Error 004!"); // for empty string
         }
         private void Error005() // error for no file
         {
-            Console.WriteLine("Error 005!"); 
+            output.ShowMessage("Error 005!"); 
         }
         private void Error006() // error for empty file
         {
-            Console.WriteLine("Error 006!");
+            output.ShowMessage("Error 006!");
         }
         private void Error007() // database empty
         {
-            Console.WriteLine("Error 007!");
+            output.ShowMessage("Error 007!");
         }
     }
 }

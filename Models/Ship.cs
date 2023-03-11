@@ -1,4 +1,6 @@
-﻿namespace Task9.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Task9.Models
 {
     public class Ship
     {
@@ -43,6 +45,21 @@
                 }
             }
             return tempShip;
+        }
+
+        public bool CheckIdExists(int id)
+        {
+            using (var db = new DatabaseContext())
+            {
+                foreach (var info in db.Ships)
+                {
+                    if (info.Id == id)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Task9.Functions.Simulation
         }
         public void Run()
         {
-            output.ShowMessage("In development");
+            output.ShowMessage("Tsudzuku");
         }
         private void GatherData()
         {
@@ -25,8 +25,7 @@ namespace Task9.Functions.Simulation
         private void SetNumberOfShips()
         {
             int numberOfShips;
-            //numberOfShips = input.GetIntValue("Podaj ilość statków na każdą z flot (np 20 = każda z flot będzie posiadałą po 20 okrętów)");
-            for (FleetNumber = 1; FleetNumber < 2; FleetNumber++)
+            for (FleetNumber = 1; FleetNumber < 3; FleetNumber++)
             {
                 numberOfShips = input.GetIntValue("Podaj ilość statków dla " + FleetNumber + ":");
                 SetShipType(numberOfShips, FleetNumber);
@@ -35,6 +34,8 @@ namespace Task9.Functions.Simulation
         private void SetShipType(int numberOfShips, int fleetNumber)
         {
             int id;
+            int availablePoints = 100;
+            int shipValue;
             for (int index = 0; index < numberOfShips; index++)
             {
                 bool exit = false;
@@ -42,10 +43,22 @@ namespace Task9.Functions.Simulation
                 {
                     new ShipDisplay(output).GetList();
                     id = input.GetIntValue("Wybierz ID Statku");
-                    exit = new Validate().MaxShipId(id);
+                    exit = new Ship().CheckIdExists(id);
                 } while (!exit);
-                AddShipToFleet(fleetNumber, id);
+                shipValue = GetShipValue();
+                availablePoints -= shipValue;
+                if (availablePoints >= 0)
+                {
+                    output.ShowMessage("Brak punktów by dodać statek");
+                }else
+                {
+                    AddShipToFleet(fleetNumber, id);
+                }
             }
+        }
+        private int GetShipValue()
+        {
+            return 0;
         }
         private void AddShipToFleet(int fleetNumber, int id)
         {

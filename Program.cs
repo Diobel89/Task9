@@ -9,4 +9,7 @@ IInput input = new Input();
 IOutput output = new Output();
 new OnStartValidation(output).CheckIsDatabaseExistent();
 new OnStartValidation(output).Run();
+
 new Menu(input, output).Show();
+
+Console.WriteLine("The end.");

@@ -1,4 +1,5 @@
-﻿using Task9.InputOutputSystem.Interface;
+﻿using Task9.ErrorCode;
+using Task9.InputOutputSystem.Interface;
 using Task9.Validation;
 
 namespace Task9.InputOutputSystem
@@ -27,11 +28,14 @@ namespace Task9.InputOutputSystem
                 isParsable = new Validate().Int(tempInput);
                 if (!isParsable)
                 {
-                    output.ShowMessage("To nie liczba!");
-                }else
+                    new ErrorCodes(output).Message(1);
+                    output.ShowMessage(message);
+                    tempInput = Console.ReadLine();
+                    isParsable = new Validate().Int(tempInput);
+                }
+                else
                 {
                     intOut = int.Parse(tempInput);
-                    return intOut;
                 }
             }
 
