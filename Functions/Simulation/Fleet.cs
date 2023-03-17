@@ -1,4 +1,5 @@
 ﻿using Task9.Models;
+using Task9.Models.Context;
 
 namespace Task9.Functions.Simulation
 {
@@ -30,17 +31,16 @@ namespace Task9.Functions.Simulation
         }
         private int GetGunTotalDamage(int id)
         {
-            using (var db = new DatabaseContext())
-            {
-                foreach (var info in db.Guns)
-                {
-                    if (info.Id == id)
-                    {
-                        return info.Damage * info.Barrels;
-                    }
-                }
-            }
-            return 0;
+            //using (var db = new DatabaseContext())
+            //{
+            //    foreach (var info in db.Guns)
+            //    {
+            var gun = new GunRepository().GetGun(id);
+            return gun.Damage * gun.Barrels;
+
+                //}
+            //}
+            //return 0;
         }
         public int GetFleetNumber()
         {

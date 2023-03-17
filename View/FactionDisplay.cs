@@ -1,29 +1,38 @@
-﻿using Task9.InputOutputSystem.Interface;
+﻿using ConsoleTables;
+using Task9.InputOutputSystem.Interface;
 using Task9.Models;
+using Task9.Models.Context;
+using Task9.View.Interface;
 
 namespace Task9.View
 {
-    public class FactionDisplay
+    public class FactionDisplay : IFactionDisplay
     {
         private readonly IOutput output;
         public FactionDisplay(IOutput output)
         {
             this.output = output;
         }
-        public void DisplayAll(List<Faction> factionList)
+        public void GetList()
         {
-            foreach (Faction faction in factionList)
+            using (var db = new FactionRepository())
             {
-                Display(faction);
+                var factionList = db.GetAllFactions();
+                DisplayInTable((List<Faction>)factionList);
             }
         }
-        private void Display(Faction faction)
+        private void DisplayInTable(List<Faction> factionList)
         {
-            var info = string.Join(" ", "ID: [" + faction.Id
-                + "]" + " Name: [" + faction.Name
-                + "]" + " Icon: [" + faction.Icon
-                + "]");
-            output.ShowMessage(info);
+            var table = new ConsoleTable(new ConsoleTableOptions
+            {
+                Columns = new[] { "ID", "Faction Name", "Icon" },
+                EnableCount = false
+            });
+            foreach (var info in factionList)
+            {
+                table.AddRow(info.Id, info.Name, info.Icon);
+            }
+            table.Write();
         }
     }
 }

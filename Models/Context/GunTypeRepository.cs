@@ -2,32 +2,28 @@
 
 namespace Task9.Models.Context
 {
-    public class FactionRepository : IFactionRepository, IDisposable
+    internal class GunTypeRepository : IGunTypeRepository
     {
         private DatabaseContext context;
-        public FactionRepository()
+        public GunTypeRepository()
         {
             this.context = new DatabaseContext();
         }
-        public IEnumerable<Faction> GetAllFactions()
+        public IEnumerable<GunType> GetAllGunTypes()
         {
-            return context.Factions.ToList();
+            return context.GunTypes.ToList();
         }
-        public void AddFaction(Faction faction)
+        public void AddGunType(GunType gunType)
         {
-            context.Factions.Add(faction);
+            context.GunTypes.Add(gunType);
         }
         public void Save()
         {
             context.SaveChanges();
         }
-        public int GetMaxId()
-        {
-            return context.Factions.Count();
-        }
         public bool CheckIdExists(int id)
         {
-            foreach (var info in context.Factions)
+            foreach (var info in context.GunTypes)
             {
                 if (info.Id == id)
                 {
@@ -36,7 +32,6 @@ namespace Task9.Models.Context
             }
             return false;
         }
-
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

@@ -1,9 +1,10 @@
 ﻿using Task9.InputOutputSystem.Interface;
+using Task9.Factory.Interface;
 using Task9.Models;
 
 namespace Task9.Factory
 {
-    public class FactionFactory : Faction
+    public class FactionFactory : IFactionFactory
     {
         private readonly IInput input;
         public FactionFactory(IInput input)
@@ -12,19 +13,17 @@ namespace Task9.Factory
         }
         public Faction Create()
         {
-            Name = GetFactionName();
-            Icon = GetFactionIcon();
-            return new Faction { Name = Name, Icon = Icon };
+            string name = GetFactionName();
+            string icon = GetFactionIcon();
+            return new Faction { Name = name, Icon = icon };
         }
         public string GetFactionName()
         {
-            Name = input.GetStringValue("Podaj nazwę frakcji:");
-            return Name;
+            return input.GetStringValue("Podaj nazwę frakcji:");
         }
         public string GetFactionIcon()
         {
-            Icon = input.GetStringValue("Podaj ikonę frakcji:");
-            return Icon;
+            return input.GetStringValue("Podaj ikonę frakcji:");
         }
     }
 }

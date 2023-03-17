@@ -1,4 +1,7 @@
-﻿using Task9.Models;
+﻿using System.Runtime.CompilerServices;
+using Task9.InputOutputSystem.Interface;
+using Task9.Models;
+using Task9.Models.Context;
 
 namespace Task9.Validation
 {
@@ -123,7 +126,7 @@ namespace Task9.Validation
         }
         public bool MaxShipId(int userInput)
         {
-            tempInt = new Ship().GetMaxId();
+            tempInt = new ShipRepository().GetMaxId(); // zmienić całkowicie z bool na int z GetMaxId na CheckIdExist
             if (userInput <= tempInt && userInput >= 0)
             {
                 return true;
@@ -137,7 +140,7 @@ namespace Task9.Validation
         }
         public bool MaxGunId(int userInput)
         {
-            tempInt = new Gun().GetMaxId();
+            tempInt = new GunRepository().GetMaxId();
             if (userInput <= tempInt && userInput >= 0)
             {
                 return true;

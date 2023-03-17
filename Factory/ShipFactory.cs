@@ -1,12 +1,12 @@
-﻿using Task9.InputOutputSystem.Interface;
+﻿using Task9.Factory.Interface;
+using Task9.InputOutputSystem.Interface;
 using Task9.Models;
-using Task9.Models.Context;
 using Task9.Validation;
 using Task9.View;
 
 namespace Task9.Factory
 {
-    public class ShipFactory : Ship
+    public class ShipFactory : IShipFactory
     {
         private readonly IInput input;
         private readonly IOutput output;
@@ -19,82 +19,101 @@ namespace Task9.Factory
 
         public Ship Create()
         {
-            Name = GetShipName();
-            Armor = GetArmorValue();
-            HP = GetHPValue();
-            GunId = GetGunID();
-            FactionId = GetFactionID();
-            Turrets = GetNumberOfTurrets();
-            return new Ship { Name = Name, Armor = Armor, HP = HP, Turrets = Turrets, GunId = GunId, FactionId = FactionId };
+            string name = GetShipName();
+            int armor = GetArmorValue();
+            int hp = GetHPValue();
+            int gunId = GetGunID();
+            int factionId = GetFactionID();
+            int turrets = GetNumberOfTurrets();
+            int typeId = GetShipTypeId();
+            return new Ship { Name = name, Armor = armor, HP = hp, Turrets = turrets, GunId = gunId, FactionId = factionId, TypeId = typeId };
         }
         private int GetGunID()
         {
-            //using (var db = new GunRepository())
-            //{
-            //    var gunList = db.GetAllGuns();
-            //    new GunDisplay(output).DisplayAll((List<Gun>)gunList);
-            //}
             new GunDisplay(output).GetList();
-            GunId = input.GetIntValue("Wybierz Id broni:");
-            return GunId;
+            return input.GetId("gun");
         }
         private int GetFactionID()
         {
-            using (var db = new FactionRepository())
-            {
-                var factionList = db.GetAllFactions();
-                new FactionDisplay(output).DisplayAll((List<Faction>)factionList);
-            }
-            FactionId = input.GetIntValue("Wybierz Id frakcji:");
-            return FactionId;
+            new FactionDisplay(output).GetList();
+            return input.GetId("faction");
         }
         private string GetShipName()
         {
-
-            Name = input.GetStringValue("Podaj nazwę statku:");
-            return Name;
+            return input.GetStringValue("Podaj nazwę statku:");
         }
         private int GetArmorValue()
         {
+            int armor;
             bool exit = false;
             do
             {
-                Armor = input.GetIntValue("Podaj wartość panczerza:");
-                isParsable = new Validate().MaxShipArmor(Armor);
+                armor = input.GetIntValue("Podaj wartość panczerza:");
+                isParsable = new Validate().MaxShipArmor(armor);
                 if (isParsable)
                 {
                     exit = true;
                 }
             } while (!exit);
-            return Armor;
+            return armor;
         }
         private int GetHPValue()
         {
+            int hp;
             bool exit = false;
             do
             { 
-                HP = input.GetIntValue("Podaj ilość życia:");
-                isParsable = new Validate().MaxShipHP(HP);
+                hp = input.GetIntValue("Podaj ilość życia:");
+                isParsable = new Validate().MaxShipHP(hp);
                 if (isParsable)
                 {
                     exit = true;
                 }
             } while (!exit);
-            return HP;
+            return hp;
         }
         private int GetNumberOfTurrets()
         {
+            int turrets;
             bool exit = false;
             do
             { 
-                Turrets = input.GetIntValue("Podaj ilość wieżyczek:");
-                isParsable = new Validate().MaxShipTurrets(Turrets);
+                turrets = input.GetIntValue("Podaj ilość wieżyczek:");
+                isParsable = new Validate().MaxShipTurrets(turrets);
                 if (isParsable)
                 {
                     exit = true;
                 }
             } while (!exit);
-            return Turrets;
+            return turrets;
+        }
+        private int GetShipTypeId()
+        {
+            //int choice = input.GetIntValue("Wybierz typ:\n"
+            //                  + "1) Niszczyciel\n"
+            //                  + "2) Krążownik\n"
+            //                  + "3) Pancernik"); // hmmm może by to przenieść żeby lepiej wyglądało ?
+            //if (choice < 0 && choice > 4)
+            //{
+            //    switch (choice)
+            //    {
+            //        case 1:
+            //            {
+            //                return "Destroyer";
+            //            }
+            //        case 2:
+            //            {
+            //                return "Cruiser";
+            //            }
+            //        case 3: 
+            //            {
+            //                return "Battleship";
+            //            }
+            //    }
+            //}
+            //return "";
+            new ShipTypesDisplay(output).GetList();
+            return input.GetId("Ship Type:");
         }
 
     }

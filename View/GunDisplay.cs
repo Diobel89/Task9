@@ -2,6 +2,7 @@
 using Task9.View.Interface;
 using Task9.Models;
 using Task9.Models.Context;
+using ConsoleTables;
 
 namespace Task9.View
 {
@@ -14,29 +15,21 @@ namespace Task9.View
         }
         public void GetList()
         {
-            using (var db = new GunRepository())
-            {
-                var gunList = db.GetAllGuns();
-                DisplayAll((List<Gun>)gunList);
-            }
+            var gunList = new GunRepository().GetAllGuns();
+            DisplayInTable((List<Gun>)gunList);
         }
-        public void DisplayAll(List<Gun> gunList)
+        private void DisplayInTable(List<Gun> gunList)
         {
-            foreach (Gun gun in gunList)
+            var table = new ConsoleTable(new ConsoleTableOptions
             {
-                Display(gun);
+                Columns = new[] { "ID", "Gun Name", "Barrels", "Damage", "Armor", "HP" },
+                EnableCount = false
+            });
+            foreach (var info in gunList)
+            {
+                table.AddRow(info.Id, info.Name, info.Barrels, info.Damage, info.Armor, info.HP);
             }
-        }
-        private void Display(Gun gun)
-        {
-            var info = string.Join(" ", "ID: [" + gun.Id 
-                + "]" + " Name: [" + gun.Name
-                + "]" + " Barrels: [" + gun.Barrels
-                + "]" + " Damage: [" + gun.Damage
-                + "]" + " Armor: [" + gun.Armor
-                + "]" + " HP: [" + gun.HP
-                + "]");
-            output.ShowMessage(info);
+            table.Write();
         }
     }
 }

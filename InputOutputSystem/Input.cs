@@ -1,5 +1,6 @@
 ﻿using Task9.ErrorCode;
 using Task9.InputOutputSystem.Interface;
+using Task9.Models.Context;
 using Task9.Validation;
 
 namespace Task9.InputOutputSystem
@@ -40,6 +41,40 @@ namespace Task9.InputOutputSystem
             }
 
             return intOut;
+        }
+        public int GetId(string fromWhere)
+        {
+            bool exit = false;
+            int id = GetIntValue("Podaj ID:");
+            do
+            {
+                if (fromWhere == "ship")
+                {
+                    exit = new ShipRepository().CheckIdExists(id);
+                    return id;
+                }
+                if (fromWhere == "gun")
+                {
+                    exit = new GunRepository().CheckIdExists(id);
+                    return id;
+                }
+                if (fromWhere == "faction")
+                {
+                    exit = new FactionRepository().CheckIdExists(id);
+                    return id;
+                }
+                if (fromWhere == "shiptype")
+                {
+                    exit = new ShipTypeRepository().CheckIdExists(id);
+                    return id;
+                }
+                if (fromWhere == "guntype")
+                {
+                    exit = new GunTypeRepository().CheckIdExists(id);
+                    return id;
+                }
+            } while (!exit);
+            return 0;
         }
     }
 }

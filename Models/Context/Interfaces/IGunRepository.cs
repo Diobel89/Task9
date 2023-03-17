@@ -1,6 +1,6 @@
 ﻿using Task9.Models;
 
-namespace Task9.Interfaces
+namespace Task9.Models.Context.Interfaces
 {
     public interface IGunRepository : IDisposable
     {
@@ -9,5 +9,6 @@ namespace Task9.Interfaces
         void DeleteGun(int gunId);
         void UpdateGun(Gun gun);
         void Save();
+        bool CheckIdExists(int id);
     }
 }

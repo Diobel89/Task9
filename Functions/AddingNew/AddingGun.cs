@@ -3,7 +3,7 @@ using Task9.InputOutputSystem.Interface;
 using Task9.Models;
 using Task9.Models.Context;
 
-namespace Task9.Functions
+namespace Task9.Functions.AddingNew
 {
     public class AddingGun
     {

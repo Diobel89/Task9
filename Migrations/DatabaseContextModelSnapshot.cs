@@ -16,6 +16,21 @@ namespace Task9.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
 
+            modelBuilder.Entity("Task9.Models.Ammo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ammos");
+                });
+
             modelBuilder.Entity("Task9.Models.Faction", b =>
                 {
                     b.Property<int>("Id")
@@ -53,16 +68,40 @@ namespace Task9.Migrations
                     b.Property<int>("HP")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("IdGunType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Reload")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("State")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TypeId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.ToTable("Guns");
+                });
+
+            modelBuilder.Entity("Task9.Models.GunType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GunTypes");
                 });
 
             modelBuilder.Entity("Task9.Models.Ship", b =>
@@ -90,9 +129,27 @@ namespace Task9.Migrations
                     b.Property<int>("Turrets")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("TypeId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.ToTable("Ships");
+                });
+
+            modelBuilder.Entity("Task9.Models.ShipType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShipTypes");
                 });
 #pragma warning restore 612, 618
         }

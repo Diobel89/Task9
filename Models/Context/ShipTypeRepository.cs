@@ -2,32 +2,28 @@
 
 namespace Task9.Models.Context
 {
-    public class FactionRepository : IFactionRepository, IDisposable
+    public class ShipTypeRepository : IShipTypeRepository
     {
         private DatabaseContext context;
-        public FactionRepository()
+        public ShipTypeRepository()
         {
             this.context = new DatabaseContext();
         }
-        public IEnumerable<Faction> GetAllFactions()
+        public IEnumerable<ShipType> GetAllShipTypes()
         {
-            return context.Factions.ToList();
+            return context.ShipTypes.ToList();
         }
-        public void AddFaction(Faction faction)
+        public void AddShipType(ShipType shipType)
         {
-            context.Factions.Add(faction);
+            context.ShipTypes.Add(shipType);
         }
         public void Save()
         {
             context.SaveChanges();
         }
-        public int GetMaxId()
-        {
-            return context.Factions.Count();
-        }
         public bool CheckIdExists(int id)
         {
-            foreach (var info in context.Factions)
+            foreach (var info in context.ShipTypes)
             {
                 if (info.Id == id)
                 {
@@ -36,7 +32,6 @@ namespace Task9.Models.Context
             }
             return false;
         }
-
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
