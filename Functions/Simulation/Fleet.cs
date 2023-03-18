@@ -12,21 +12,22 @@ namespace Task9.Functions.Simulation
         public int ShipTotalDamage { get; set; }
         public int FleetNumber { get; set; }
 
-        public int SetTotalDamage(int id)
+        public int SetTotalDamage(Ship ship)
         {
 
             // pobrać DMG broni x liczba luf x liczba wież = total damage
-            using (var db = new DatabaseContext())
-            {
-                foreach (var info in db.Ships)
-                {
-                    if (info.Id == id)
-                    {
-                        ShipTotalDamage = GetGunTotalDamage(info.GunId);
-                        ShipTotalDamage *= info.Turrets;
-                    }
-                }
-            }
+            //using (var db = new DatabaseContext())
+            //{
+            //    foreach (var info in db.Ships)
+            //    {
+            //var info = new ShipRepository().GetShip(id);
+                    //if (ship.GunId == id)
+                    //{
+                        ShipTotalDamage = GetGunTotalDamage(ship.GunId);
+                        ShipTotalDamage *= ship.Turrets;
+                    //}
+                //}
+            //}
             return ShipTotalDamage;
         }
         private int GetGunTotalDamage(int id)

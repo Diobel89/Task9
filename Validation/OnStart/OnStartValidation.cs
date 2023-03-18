@@ -127,7 +127,7 @@ namespace Task9.Validation.OnStart
                 }else
                 {
                     //Iron Blood Destroyers
-                    context.Ships.Add(new Ship { Name = "Z23", Armor = 100, HP = 100, GunId = 3, FactionId = 1, Turrets = 3, TypeId = 1 });
+                    context.Ships.Add(new Ship { Name = "Z23", Armor = 100, HP = 1000, GunId = 3, FactionId = 1, Turrets = 3, TypeId = 1 });
                     //Iron Blood Cruisers
                     context.Ships.Add(new Ship { Name = "Prinz Eugen", Armor = 9999, HP = 9999, GunId = 1, FactionId = 1, Turrets = 4, TypeId = 2 });
                     context.Ships.Add(new Ship { Name = "Admiral Hipper", Armor = 2000, HP = 200, GunId = 2, FactionId = 1, Turrets = 4, TypeId = 2});

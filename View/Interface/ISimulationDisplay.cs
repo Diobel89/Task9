@@ -1,8 +1,8 @@
-﻿using Task9.Models;
+﻿using Task9.Functions.Simulation;
 namespace Task9.View.Interface
 {
     public interface ISimulationDisplay
     {
-        void Display(List<Ship> team1,List<Ship> team2);
+        void Display(List<Fleet> team1,List<Fleet> team2);
     }
 }

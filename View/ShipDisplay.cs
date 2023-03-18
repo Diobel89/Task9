@@ -32,7 +32,7 @@ namespace Task9.View
         {
             string factionName = GetFactionName(ship.FactionId);
             string gunName = GetGunName(ship.GunId);
-            int totalDamage = new Fleet().SetTotalDamage(ship.Id);
+            int totalDamage = new Fleet().SetTotalDamage(ship);
             var info = string.Join(" ", "ID: [" + ship.Id
                 + "]" + " Name: [" + ship.Name
                 + "]" + " Turrets: [" + ship.Turrets
@@ -59,7 +59,7 @@ namespace Task9.View
                 {
                     factionName = GetFactionName(info.FactionId);
                     gunName = GetGunName(info.GunId);
-                    totalDamage = new Fleet().SetTotalDamage(info.Id);
+                    totalDamage = new Fleet().SetTotalDamage(info);
                     table.AddRow(info.Id, info.Name, gunName, info.Turrets , info.Armor, info.HP, factionName, totalDamage);
                 }
                 table.Write();

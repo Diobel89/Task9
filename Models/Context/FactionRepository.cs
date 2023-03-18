@@ -36,6 +36,17 @@ namespace Task9.Models.Context
             }
             return false;
         }
+        public string GetIcon(int factionId)
+        {
+            foreach (var info in context.Factions)
+            {
+                if (info.Id == factionId)
+                {
+                    return info.Icon;
+                }
+            }
+            return "";
+        }
 
         private bool disposed = false;
 

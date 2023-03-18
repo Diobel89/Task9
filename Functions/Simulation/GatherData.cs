@@ -17,6 +17,7 @@ namespace Task9.Functions.Simulation
         public void Run()
         {
             SetBattleScal();
+            new Start(output).Run(fleet1, fleet2);
             output.ShowMessage("Tsudzuku");
         }
         private void SetBattleScal()
@@ -31,86 +32,104 @@ namespace Task9.Functions.Simulation
             int availablePoints = SetAvailablePoinstByBattleScal(scale);
             int maxShips = SetMaxShips(scale);
             int fleetNumber = 1;
-            int id;
-            bool exit = false;
+            int id, index = 0;
+            bool exit = false, check = false;
+            output.CleanScreen();
             do
             {
-                NewShip:
-                new ShipDisplay(output).GetList();
-
-                id = input.GetId("ship"); // zamiast CheckIdExist zrobić funkcje wybierania ID w input? razem z sprawdzaniem czy istnieje
-                totalValue = SetTotalValue(id);
-                output.ShowMessage(String.Join(" ", "Koszt totaly to: " + totalValue));
-                int choice = input.GetIntValue("1) Dodaj statek do floty\n"
-                                 + "2) Wybierz inny\n"
-                                 + "3) Zmień broń");
-                switch (choice)
+            NewShip:
+                if (fleetNumber == 3)
                 {
-                    case 1:
-                        {
-                            Ship ship = new ShipRepository().GetShip(id);
-                            AddShipToFleet(fleetNumber, ship);
-                            break;
-                        }
-                    case 2:
-                        {
-                            goto NewShip;
-                        }
-                    case 3:
-                        {
-                            AskAgain:
-                            Ship.GunId = GetNewGun();
-                            (int, int) tempTupple = SetShipValue(id);
-                            int tempInt = SetGunValue(Ship.GunId);
-                            tempInt += tempTupple.Item1;
-                            output.ShowMessage(String.Join("", "Nowy koszt totalny to: " + tempInt));
-                            Ship shipWithNewGun = SetNewGunToShip(tempTupple.Item1, id);
-                            choice = input.GetIntValue("1)Dodaj\n"
-                                             + "2)zmień broń");
-                            if (choice == 1 && choice > 0 && choice < 3)
+                    exit = true;
+                }
+                else
+                {
+                    output.ShowMessage("Kolej: Floota " + fleetNumber + "\n" 
+                                     + "Pozostałą ilość punktów: " + availablePoints);
+                    new ShipDisplay(output).GetList();
+
+                    id = input.GetId("ship");
+                    totalValue = SetTotalValue(id);
+                    output.ShowMessage(String.Join(" ", "Koszt totaly to: " + totalValue));
+                    int choice = input.GetIntValue("1) Dodaj statek do floty" + fleetNumber + "\n"
+                                                 + "2) Wybierz inny\n"
+                                                 + "3) Zmień broń");
+                    switch (choice)
+                    {
+                        case 1:
                             {
-                                AddShipToFleet(fleetNumber, shipWithNewGun);
-                            }else
-                            {
-                                goto AskAgain;
+                                Ship ship = new ShipRepository().GetShip(id);
+                                availablePoints -= totalValue; // tutaj wstawić CheckPoints
+                                check = CheckPoints(availablePoints);
+                                if (check)
+                                {
+                                    AddShipToFleet(fleetNumber, ship);
+                                }
+                                else
+                                {
+                                    fleetNumber++;
+                                    availablePoints = SetAvailablePoinstByBattleScal(scale);
+                                    index = 0;
+                                    goto NewShip;
+                                }
+                                break;
                             }
-                            break;
-                            //goto AskAgain;
+                        case 2:
+                            {
+                                goto NewShip;
+                            }
+                        case 3:
+                            {
+                            AskAgain:
+                                Ship.GunId = GetNewGun();
+                                (int, int) tempTupple = SetShipValue(id);
+                                int tempInt = SetGunValue(Ship.GunId);
+                                tempInt += tempTupple.Item1;
+                                output.ShowMessage(String.Join("", "Nowy koszt totalny to: " + tempInt));
+                                Ship shipWithNewGun = SetNewGunToShip(tempTupple.Item1, id);
+                                choice = input.GetIntValue("1)Dodaj\n"
+                                                         + "2)zmień broń");
+                                if (choice == 1 && choice > 0 && choice < 3)
+                                {
+                                    availablePoints -= tempInt;
+                                    check = CheckPoints(availablePoints);
+                                    if (check)
+                                    {
+                                        AddShipToFleet(fleetNumber, shipWithNewGun);
+                                    }
+                                    else
+                                    {
+                                        fleetNumber++;
+                                        availablePoints = SetAvailablePoinstByBattleScal(scale);
+                                        index = 0;
+                                        goto NewShip;
+                                    }
+                                }
+                                else
+                                {
+                                    goto AskAgain;
+                                }
+                                break;
+                            }
+                    }
+                    output.CleanScreen();
+                    if (index < maxShips && fleetNumber < 3)
+                    {
+                        index++;
+                        if (index == maxShips)
+                        {
+                            fleetNumber++;
+                            availablePoints = SetAvailablePoinstByBattleScal(scale);
+                            index = 0;
                         }
+                    }
+                    else
+                    {
+                        exit = true;
+                    }
                 }
             }while (!exit);
-            //for (int index = 0; index < maxShips; index++)
-            //{
-            //Again:
-            //    output.ShowMessage(String.Join(" ", "Ruch Floty" + fleetNumber));
-            //    new ShipDisplay(output).GetList();
-            //    int id = input.GetIntValue("Wybierz ID:");
-            //    bool isTrue = new Validate().MaxShipId(id);
-            //    if (!isTrue)
-            //    {
-            //        id = input.GetIntValue("Wybierz ID:");
-            //    }
-            //    totalValue = SetTotalValue(id);
-            //    availablePoints -= totalValue;
-            //    if (availablePoints > 0 && (availablePoints += totalValue) < 0)
-            //    {
-            //        output.ShowMessage("Nie stać cię biedaku");
-            //        if ((availablePoints += totalValue) < 0)
-            //        {
-            //            goto Again;
-            //        }
-            //        else
-            //        {
-            //            break;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        AddShipToFleet(fleetNumber, id);
-            //    }
-            //    fleetNumber++;
-            //    goto Again;
-            //}
+            // new End(output).Run();
         }
         private Ship SetNewGunToShip(int gunId, int shipId)
         {
@@ -125,15 +144,15 @@ namespace Task9.Functions.Simulation
             if (fleetNumber == 1)
             {
                 //Ship = new ShipRepository().GetShip(id);
-                shipTotalDamage = new Fleet().SetTotalDamage(ship.GunId); // naprawić :D
-                shipTotalDamage *= ship.Turrets;
+                shipTotalDamage = new Fleet().SetTotalDamage(ship); // naprawić :D
+                //shipTotalDamage *= ship.Turrets;
                 fleet1.Add(new Fleet { Ship = ship, ShipTotalDamage = shipTotalDamage, FleetNumber = fleetNumber });
             }
             if (fleetNumber == 2)
             {
                 //Ship = new ShipRepository().GetShip(id);
-                shipTotalDamage = new Fleet().SetTotalDamage(ship.GunId);
-                shipTotalDamage *= ship.Turrets;
+                shipTotalDamage = new Fleet().SetTotalDamage(ship);
+                //shipTotalDamage *= ship.Turrets;
                 fleet2.Add(new Fleet { Ship = ship, ShipTotalDamage = shipTotalDamage, FleetNumber = fleetNumber });
             }
         }
@@ -149,7 +168,6 @@ namespace Task9.Functions.Simulation
         }
         private int SetGunValue(int gunId)
         {
-            //Ship = new ShipRepository().GetShip(id);
             Gun gun = new GunRepository().GetGun(gunId);
             return gun.Barrels;
         }
@@ -187,7 +205,17 @@ namespace Task9.Functions.Simulation
         {
             new GunDisplay(output).GetList();
             return input.GetId("gun");
-            //return new GunRepository().GetGun(id);
+        }
+        private bool CheckPoints(int availablePoints)
+        {
+            if (availablePoints > 0)
+            {
+                return true;
+            }else
+            {
+                return false;
+            }
+
         }
     }
 }
