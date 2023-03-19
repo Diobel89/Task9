@@ -1,5 +1,4 @@
-﻿using Task9.InputOutputSystem.Interface;
-using Task9.View.Interface;
+﻿using Task9.View.Interface;
 using Task9.Models;
 using Task9.Models.Context;
 using ConsoleTables;
@@ -8,11 +7,6 @@ namespace Task9.View
 {
     public class GunDisplay : IGunDisplay
     {
-        private readonly IOutput output;
-        public GunDisplay(IOutput output)
-        {
-            this.output = output;
-        }
         public void GetList()
         {
             var gunList = new GunRepository().GetAllGuns();

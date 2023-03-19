@@ -1,11 +1,5 @@
-﻿using Task9.Parse;
-using Task9.InputOutputSystem.Interface;
-using Task9.Validation;
-using Task9.Models.Context;
-using Task9.Models;
+﻿using Task9.InputOutputSystem.Interface;
 using Task9.View;
-using Task9.Factory;
-using Task9.Functions;
 using Task9.Functions.Simulation;
 using Task9.Functions.AddingNew;
 
@@ -106,15 +100,15 @@ namespace Task9
         }
         private void ExecuteCase3()
         {
-            new ShipDisplay(output).GetList();
+            new ShipDisplay().GetList();
         }
         private void ExecuteCase4()
         {
-            new GunDisplay(output).GetList();
+            new GunDisplay().GetList();
         }
         private void ExecuteCase5()
         {
-            new FactionDisplay(output).GetList();
+            new FactionDisplay().GetList();
         }
         private void ExecuteCase6()
         {

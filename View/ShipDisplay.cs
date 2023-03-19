@@ -1,5 +1,4 @@
 ﻿using ConsoleTables;
-using System.Numerics;
 using Task9.Functions.Simulation;
 using Task9.InputOutputSystem.Interface;
 using Task9.Models;
@@ -10,40 +9,15 @@ namespace Task9.View
 {
     public class ShipDisplay : IShipDisplay
     {
-        private readonly IOutput output;
-        public ShipDisplay(IOutput output)
-        {
-            this.output = output;
-        }
+        //private readonly IOutput output;
+        //public ShipDisplay(IOutput output)
+        //{
+        //    this.output = output;
+        //}
         public void GetList()
         {
             var shipList = new ShipRepository().GetAllShips();
-            //DisplayAll((List<Ship>)shipList);
             DisplayInTable((List<Ship>)shipList);
-        }
-        public void DisplayAll(List<Ship> shipList)
-        {
-            foreach (Ship ship in shipList)
-            {
-                Display(ship);
-            }
-        }
-        private void Display(Ship ship)
-        {
-            string factionName = GetFactionName(ship.FactionId);
-            string gunName = GetGunName(ship.GunId);
-            int totalDamage = new Fleet().SetTotalDamage(ship);
-            var info = string.Join(" ", "ID: [" + ship.Id
-                + "]" + " Name: [" + ship.Name
-                + "]" + " Turrets: [" + ship.Turrets
-                + "]" + " Gun: [" + gunName
-                + "]" + " Armor: [" + ship.Armor
-                + "]" + " HP: [" + ship.HP
-                + "]" + " Faction: [" + factionName
-                + "]" + " Damage: [" + totalDamage
-                + "]"); 
-            output.ShowMessage(info);
-
         }
         private void DisplayInTable(List<Ship> shipList)
         {
@@ -64,33 +38,13 @@ namespace Task9.View
                 }
                 table.Write();
         }
-        private string GetFactionName(int id) // koniecznie zmienić DatabaseContext na FactionRepository!
+        private string GetFactionName(int id)
         {
-            using (var db = new DatabaseContext())
-            {
-                foreach (var info in db.Factions)
-                {
-                    if (info.Id == id)
-                    {
-                        return info.Name;
-                    }
-                }
-            }
-            return string.Empty;
+            return new FactionRepository().GetName(id);
         }
-        private string GetGunName(int id) // koniecznie zmienić DatabaseContext na GunRepository!
+        private string GetGunName(int id)
         {
-            using (var db = new DatabaseContext())
-            {
-                foreach (var info in db.Guns)
-                {
-                    if (info.Id == id)
-                    {
-                        return info.Name;
-                    }
-                }
-            }
-            return string.Empty;
+            return new GunRepository().GetName(id);
         }
     }
 }

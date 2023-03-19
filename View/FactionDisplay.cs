@@ -8,11 +8,6 @@ namespace Task9.View
 {
     public class FactionDisplay : IFactionDisplay
     {
-        private readonly IOutput output;
-        public FactionDisplay(IOutput output)
-        {
-            this.output = output;
-        }
         public void GetList()
         {
             using (var db = new FactionRepository())

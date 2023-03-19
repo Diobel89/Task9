@@ -1,4 +1,5 @@
-﻿using Task9.Models.Context.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Task9.Models.Context.Interfaces;
 
 namespace Task9.Models.Context
 {
@@ -46,6 +47,11 @@ namespace Task9.Models.Context
                 }
             }
             return "";
+        }
+        public string GetName(int factionId)
+        {
+            var info = context.Factions.FirstOrDefault(id => id.Id == factionId);
+            return info.Name;
         }
 
         private bool disposed = false;

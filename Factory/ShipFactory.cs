@@ -30,12 +30,12 @@ namespace Task9.Factory
         }
         private int GetGunID()
         {
-            new GunDisplay(output).GetList();
+            new GunDisplay().GetList();
             return input.GetId("gun");
         }
         private int GetFactionID()
         {
-            new FactionDisplay(output).GetList();
+            new FactionDisplay().GetList();
             return input.GetId("faction");
         }
         private string GetShipName()

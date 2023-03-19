@@ -38,18 +38,23 @@ namespace Task9.Models.Context
         }
         public Gun GetGun(int id)
         {
-            Gun tempGun = new Gun();
-            using (var db = new DatabaseContext())
-            {
-                foreach (var gun in db.Guns)
-                {
-                    if (gun.Id == id)
-                    {
-                        tempGun = gun;
-                    }
-                }
-            }
-            return tempGun;
+            Gun gun = context.Guns.FirstOrDefault(i => i.Id == id);
+            return gun;
+            //Gun tempGun = new Gun();
+            //foreach (var gun in context.Guns)
+            //{
+            //    if (gun.Id == id)
+            //    {
+            //            tempGun = gun;
+            //        return gun;
+            //    }
+            //}
+            //return tempGun;
+        }
+        public string GetName(int gunId)
+        {
+            Gun gun = context.Guns.FirstOrDefault(id => id.Id == gunId);
+            return gun.Name;
         }
         public bool CheckIdExists(int id)
         {

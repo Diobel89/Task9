@@ -17,7 +17,7 @@ namespace Task9.Functions.Simulation
         public void Run()
         {
             SetBattleScal();
-            new Start(output).Run(fleet1, fleet2);
+            new Start(output, fleet1, fleet2).Run();
             output.ShowMessage("Tsudzuku");
         }
         private void SetBattleScal()
@@ -46,7 +46,7 @@ namespace Task9.Functions.Simulation
                 {
                     output.ShowMessage("Kolej: Floota " + fleetNumber + "\n" 
                                      + "Pozostałą ilość punktów: " + availablePoints);
-                    new ShipDisplay(output).GetList();
+                    new ShipDisplay().GetList();
 
                     id = input.GetId("ship");
                     totalValue = SetTotalValue(id);
@@ -203,7 +203,7 @@ namespace Task9.Functions.Simulation
         }
         private int GetNewGun()
         {
-            new GunDisplay(output).GetList();
+            new GunDisplay().GetList();
             return input.GetId("gun");
         }
         private bool CheckPoints(int availablePoints)

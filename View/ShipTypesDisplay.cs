@@ -16,7 +16,6 @@ namespace Task9.View
         public void GetList()
         {
             var shipTypeList = new ShipTypeRepository().GetAllShipTypes();
-            //DisplayAll((List<Ship>)shipList);
             DisplayInTable((List<ShipType>)shipTypeList);
         }
         private void DisplayInTable(List<ShipType> shipTypeList)
