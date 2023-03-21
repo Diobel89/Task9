@@ -9,6 +9,8 @@ namespace Task9.Models.Context.Interfaces
         void DeleteShip(int ShipId);
         void UpdateShip(Ship ship);
         void Save();
+        int GetMaxId();
         bool CheckIdExists(int id);
+        Ship GetShip(int id);
     }
 }

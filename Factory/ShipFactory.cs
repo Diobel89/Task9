@@ -89,32 +89,8 @@ namespace Task9.Factory
         }
         private int GetShipTypeId()
         {
-            //int choice = input.GetIntValue("Wybierz typ:\n"
-            //                  + "1) Niszczyciel\n"
-            //                  + "2) Krążownik\n"
-            //                  + "3) Pancernik"); // hmmm może by to przenieść żeby lepiej wyglądało ?
-            //if (choice < 0 && choice > 4)
-            //{
-            //    switch (choice)
-            //    {
-            //        case 1:
-            //            {
-            //                return "Destroyer";
-            //            }
-            //        case 2:
-            //            {
-            //                return "Cruiser";
-            //            }
-            //        case 3: 
-            //            {
-            //                return "Battleship";
-            //            }
-            //    }
-            //}
-            //return "";
             new ShipTypesDisplay(output).GetList();
             return input.GetId("Ship Type:");
         }
-
     }
 }

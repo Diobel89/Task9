@@ -39,36 +39,20 @@ namespace Task9.Functions.Simulation
                 }else
                 {
                     output.ShowInt(turn);
-                    if (turn == 0)
+                    if (turn == 0 ^ turn == 3 ^ turn == 4)
                     {
                         fleet2[index].Ship.HP -= fleet1[index].ShipTotalDamage;
                         Fleet1Move();
-                        turn++;
+                        turn = 1;
                     }else
                     {
                         fleet1[index].Ship.HP -= fleet2[index].ShipTotalDamage;
                         Fleet2Move();
-                        turn--;
+                        turn = 0;
                     }
                 }
             } while (!exit);
-            EndSimulation();
-        }
-        private void EndSimulation()
-        {
-            string fleetName;
-            if (fleet1.Count < fleet2.Count)
-            {
-                fleetName = "Flota 2";
-                output.ShowMessage("Wygrywa: " + fleetName);
-                BattleSummary();
-            }
-            else
-            {
-                fleetName = "Flota 1";   
-                output.ShowMessage("Wygrywa: " + fleetName);
-                BattleSummary();
-            }
+            new End(output, fleet1, fleet2, graveyard).Run();
         }
         private void Fleet1Move()
         {
@@ -97,34 +81,9 @@ namespace Task9.Functions.Simulation
                 output.ShowMessage(fleet1[index].Ship.Name + " z floty " + fleet1[index].FleetNumber + " oberwał za: " + fleet2[index].ShipTotalDamage);
             }
         }
-    private void BattleSummary()
-        {
-            output.ShowMessage("Flota 1 straciła: ");
-            if (graveyard.Any(i => i.FleetNumber == 1))
-            {
-                foreach (var info in graveyard.Where(i => i.FleetNumber == 1))
-                { 
-                        output.ShowMessage(info.Ship.Name);
-                }
-            }else
-            {
-                output.ShowMessage("0 strat");
-            }
-            if (graveyard.Any(i => i.FleetNumber == 1))
-            {
-                output.ShowMessage("Flota 2 straciła: ");
-                foreach (var info in graveyard.Where(i => i.FleetNumber == 2))
-                {
-                        output.ShowMessage(info.Ship.Name);
-                }
-            }else
-            {
-                output.ShowMessage("0 strat");
-            }
-        }
         private int WhosFirst()
         {
-            return new Random().Next(2);
+            return new Random().Next(6);
         }
     }
 }

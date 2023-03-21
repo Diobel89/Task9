@@ -1,10 +1,16 @@
 ﻿using Task9.Models;
 using Task9.Models.Context;
+using Task9.Models.Context.Interfaces;
 
 namespace Task9.Functions.Simulation
 {
     public class Fleet 
     {
+        private readonly IGunRepository _gunRepository;
+        public Fleet()
+        {
+            _gunRepository = new GunRepository();
+        }
         public List<Fleet> fleet1 = new List<Fleet>();
         public List<Fleet> fleet2 = new List<Fleet>();
         public List<Fleet> graveyard = new List<Fleet>();
@@ -14,34 +20,14 @@ namespace Task9.Functions.Simulation
 
         public int SetTotalDamage(Ship ship)
         {
-
-            // pobrać DMG broni x liczba luf x liczba wież = total damage
-            //using (var db = new DatabaseContext())
-            //{
-            //    foreach (var info in db.Ships)
-            //    {
-            //var info = new ShipRepository().GetShip(id);
-                    //if (ship.GunId == id)
-                    //{
-                        ShipTotalDamage = GetGunTotalDamage(ship.GunId);
-                        ShipTotalDamage *= ship.Turrets;
-                    //}
-                //}
-            //}
+            ShipTotalDamage = GetGunTotalDamage(ship.GunId);
+            ShipTotalDamage *= ship.Turrets;
             return ShipTotalDamage;
         }
         private int GetGunTotalDamage(int id)
         {
-            //using (var db = new DatabaseContext())
-            //{
-            //    foreach (var info in db.Guns)
-            //    {
-            var gun = new GunRepository().GetGun(id);
+            var gun = _gunRepository.GetGun(id);
             return gun.Damage * gun.Barrels;
-
-                //}
-            //}
-            //return 0;
         }
         public int GetFleetNumber()
         {

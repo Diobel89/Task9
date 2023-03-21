@@ -1,19 +1,19 @@
 ﻿using ConsoleTables;
 using Task9.Functions.Simulation;
-using Task9.InputOutputSystem.Interface;
 using Task9.Models;
 using Task9.Models.Context;
+using Task9.Models.Context.Interfaces;
 using Task9.View.Interface;
 
 namespace Task9.View
 {
     public class ShipDisplay : IShipDisplay
     {
-        //private readonly IOutput output;
-        //public ShipDisplay(IOutput output)
-        //{
-        //    this.output = output;
-        //}
+        private readonly IGunRepository _gunRepository;
+        public ShipDisplay()
+        {
+            _gunRepository = new GunRepository();
+        }
         public void GetList()
         {
             var shipList = new ShipRepository().GetAllShips();
@@ -44,7 +44,7 @@ namespace Task9.View
         }
         private string GetGunName(int id)
         {
-            return new GunRepository().GetName(id);
+            return _gunRepository.GetName(id);
         }
     }
 }

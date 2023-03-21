@@ -99,8 +99,6 @@ namespace Task9.Validation.OnStart
         }
         private void ValidateFactionTable()
         {
-            //using (var db = new DatabaseContext())
-            //{
                 if (context.Factions.Any())
                 {
                 }else
@@ -116,12 +114,9 @@ namespace Task9.Validation.OnStart
                     context.Factions.Add(new Faction { Name = "Sardegna Empire", Icon = "SaE" }); //id = 9
                     context.SaveChanges();
                 }
-            //}
         }
         private void ValidateShipTable()
         {
-            //using (var db = new DatabaseContext())
-            //{
                 if (context.Ships.Any())
                 {
                 }else
@@ -154,13 +149,8 @@ namespace Task9.Validation.OnStart
                     context.Ships.Add(new Ship { Name = "Furutaka", Armor = 200, HP = 2000, GunId = 12, FactionId = 4, Turrets = 3, TypeId = 2});
                     //Sakura Empire BattleShips
                     context.Ships.Add(new Ship { Name = "Musashi", Armor = 300, HP = 3000, GunId = 13, FactionId = 4, Turrets = 3, TypeId = 3});
-
-
-
                     context.SaveChanges();
-                    //return true;
                 }
-            //}
         }
         private void AllChecksPassed()
         {

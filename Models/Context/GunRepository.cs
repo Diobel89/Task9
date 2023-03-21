@@ -40,16 +40,6 @@ namespace Task9.Models.Context
         {
             Gun gun = context.Guns.FirstOrDefault(i => i.Id == id);
             return gun;
-            //Gun tempGun = new Gun();
-            //foreach (var gun in context.Guns)
-            //{
-            //    if (gun.Id == id)
-            //    {
-            //            tempGun = gun;
-            //        return gun;
-            //    }
-            //}
-            //return tempGun;
         }
         public string GetName(int gunId)
         {

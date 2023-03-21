@@ -2,14 +2,20 @@
 using Task9.Models;
 using Task9.Models.Context;
 using ConsoleTables;
+using Task9.Models.Context.Interfaces;
 
 namespace Task9.View
 {
     public class GunDisplay : IGunDisplay
     {
+        private readonly IGunRepository _gunRepository;
+        public GunDisplay()
+        {
+            _gunRepository = new GunRepository();
+        }
         public void GetList()
         {
-            var gunList = new GunRepository().GetAllGuns();
+            var gunList = _gunRepository.GetAllGuns();
             DisplayInTable((List<Gun>)gunList);
         }
         private void DisplayInTable(List<Gun> gunList)

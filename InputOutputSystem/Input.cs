@@ -1,20 +1,27 @@
 ﻿using Task9.ErrorCode;
 using Task9.InputOutputSystem.Interface;
 using Task9.Models.Context;
+using Task9.Models.Context.Interfaces;
 using Task9.Validation;
 
 namespace Task9.InputOutputSystem
 {
     public class Input : IInput
     {
-        private readonly IOutput output;
+        private readonly IOutput _output;
+        private readonly IGunRepository _gunRepository;
+        private readonly IShipRepository _shipRepository;
+        private readonly IFactionRepository _factionRepository;
         public Input()
         {
-            output = new Output();
+            _output = new Output();
+            _gunRepository = new GunRepository();
+            _shipRepository = new ShipRepository();
+            _factionRepository = new FactionRepository();
         }
         public string GetStringValue(string message)
         {
-            output.ShowMessage(message);
+            _output.ShowMessage(message);
             string tempInput = Console.ReadLine();
             return tempInput;
         }
@@ -22,15 +29,15 @@ namespace Task9.InputOutputSystem
         {
             bool isParsable = false;
             int intOut = 0;
-            output.ShowMessage(message);
+            _output.ShowMessage(message);
             string tempInput = Console.ReadLine();
             while (!isParsable)
             {
                 isParsable = new Validate().Int(tempInput);
                 if (!isParsable)
                 {
-                    new ErrorCodes(output).Message(1);
-                    output.ShowMessage(message);
+                    new ErrorCodes(_output).Message(1);
+                    _output.ShowMessage(message);
                     tempInput = Console.ReadLine();
                     isParsable = new Validate().Int(tempInput);
                 }
@@ -45,33 +52,49 @@ namespace Task9.InputOutputSystem
         public int GetId(string fromWhere)
         {
             bool exit = false;
-            int id = GetIntValue("Podaj ID:");
+            int id;
             do
             {
+                id = GetIntValue("Podaj ID:");
                 if (fromWhere == "ship")
                 {
-                    exit = new ShipRepository().CheckIdExists(id);
-                    return id;
+                    exit = _shipRepository.CheckIdExists(id);
+                    if (exit)
+                    {
+                        return id;
+                    }
                 }
                 if (fromWhere == "gun")
                 {
-                    exit = new GunRepository().CheckIdExists(id);
-                    return id;
+                    exit = _gunRepository.CheckIdExists(id);
+                    if (exit)
+                    {
+                        return id;
+                    }
                 }
                 if (fromWhere == "faction")
                 {
-                    exit = new FactionRepository().CheckIdExists(id);
-                    return id;
+                    exit = _factionRepository.CheckIdExists(id);
+                    if (exit)
+                    {
+                        return id;
+                    }
                 }
                 if (fromWhere == "shiptype")
                 {
                     exit = new ShipTypeRepository().CheckIdExists(id);
-                    return id;
+                    if (exit)
+                    {
+                        return id;
+                    }
                 }
                 if (fromWhere == "guntype")
                 {
                     exit = new GunTypeRepository().CheckIdExists(id);
-                    return id;
+                    if (exit)
+                    {
+                        return id;
+                    }
                 }
             } while (!exit);
             return 0;

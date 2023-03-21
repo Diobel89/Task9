@@ -112,7 +112,6 @@ namespace Task9
         }
         private void ExecuteCase6()
         {
-            //new Symulation(input, output).Run();
             new GatherData(input, output).Run();
         }
     }
