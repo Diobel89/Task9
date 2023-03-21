@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Task9.Interfaces;
+using Task9.Models.Context.Interfaces;
 
 namespace Task9.Models.Context
 {
@@ -32,7 +32,25 @@ namespace Task9.Models.Context
         {
             context.SaveChanges();
         }
-
+        public int GetMaxId()
+        {
+            return context.Ships.Count();
+        }
+        public bool CheckIdExists(int id)
+        {
+                foreach (var info in context.Ships)
+                {
+                    if (info.Id == id)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+        }
+        public Ship GetShip(int id)
+        {
+            return context.Ships.FirstOrDefault(i => i.Id == id);
+        }
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
@@ -46,7 +64,6 @@ namespace Task9.Models.Context
             }
             this.disposed = true;
         }
-
         public void Dispose()
         {
             Dispose(true);

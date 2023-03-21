@@ -1,4 +1,6 @@
-﻿using Task9.Models;
+﻿using Task9.InputOutputSystem;
+using Task9.InputOutputSystem.Interface;
+using Task9.Models;
 
 namespace Task9.Validation
 {
@@ -6,6 +8,11 @@ namespace Task9.Validation
     {
         private bool isParsable;
         private int tempInt;
+        private readonly IOutput _output;
+        public Validate()
+        {
+            _output = new Output();
+        }
         public bool Int(string temp)
         {
             isParsable = CheckInt(temp);
@@ -26,7 +33,7 @@ namespace Task9.Validation
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Najwyższa wartość to: " + tempInt);
+                _output.ShowMessage("Najwyższa wartość to: " + tempInt);
                 Console.ResetColor();
                 return false;
             }
@@ -41,7 +48,7 @@ namespace Task9.Validation
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Najwyższa wartość to: " + tempInt);
+                _output.ShowMessage("Najwyższa wartość to: " + tempInt);
                 Console.ResetColor();
                 return false;
             }
@@ -56,7 +63,7 @@ namespace Task9.Validation
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Najwyższa wartość to: " + tempInt);
+                _output.ShowMessage("Najwyższa wartość to: " + tempInt);
                 Console.ResetColor();
                 return false;
             }
@@ -71,7 +78,7 @@ namespace Task9.Validation
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Najwyższa wartość to: " + tempInt);
+                _output.ShowMessage("Najwyższa wartość to: " + tempInt);
                 Console.ResetColor();
                 return false;
             }
@@ -86,7 +93,7 @@ namespace Task9.Validation
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Najwyższa wartość to: " + tempInt);
+                _output.ShowMessage("Najwyższa wartość to: " + tempInt);
                 Console.ResetColor();
                 return false;
             }
@@ -101,7 +108,7 @@ namespace Task9.Validation
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Najwyższa wartość to: " + tempInt);
+                _output.ShowMessage("Najwyższa wartość to: " + tempInt);
                 Console.ResetColor();
                 return false;
             }
@@ -116,51 +123,7 @@ namespace Task9.Validation
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Najwyższa wartość to: " + tempInt);
-                Console.ResetColor();
-                return false;
-            }
-        }
-        public bool MaxShipId(int userInput)
-        {
-            tempInt = new Ship().GetMaxId();
-            if (userInput <= tempInt && userInput >= 0)
-            {
-                return true;
-            }else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Brak ID");
-                Console.ResetColor();
-                return false;
-            }
-        }
-        public bool MaxGunId(int userInput)
-        {
-            tempInt = new Gun().GetMaxId();
-            if (userInput <= tempInt && userInput >= 0)
-            {
-                return true;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Brak ID");
-                Console.ResetColor();
-                return false;
-            }
-        }
-        public bool MaxFactionId(int userInput)
-        {
-            tempInt = new Faction().GetMaxId();
-            if (userInput <= tempInt && userInput >= 0)
-            {
-                return true;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Brak ID");
+                _output.ShowMessage("Najwyższa wartość to: " + tempInt);
                 Console.ResetColor();
                 return false;
             }

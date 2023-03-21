@@ -1,12 +1,7 @@
-﻿using Task9.Parse;
-using Task9.InputOutputSystem.Interface;
-using Task9.Validation;
-using Task9.Models.Context;
-using Task9.Models;
+﻿using Task9.InputOutputSystem.Interface;
 using Task9.View;
-using Task9.Factory;
-using Task9.Functions;
 using Task9.Functions.Simulation;
+using Task9.Functions.AddingNew;
 
 namespace Task9
 {
@@ -14,9 +9,6 @@ namespace Task9
     {
         private readonly IInput input;
         private readonly IOutput output;
-        private string temp;
-        private int choice;
-        private bool isParsable;
         public Menu(IInput input, IOutput output)
         {
             this.input = input;
@@ -29,15 +21,8 @@ namespace Task9
         private void Use()
         {
         Again:
-
-            ShowOptions();
-
-            temp = Console.ReadLine();
-            isParsable = new Validate().Int(temp);
-            if (isParsable)
-            {
-                choice = new StringParseTo().Int(temp);
-                isParsable = MaxMenuChoice(choice);
+            int choice = ShowOptions();
+            bool isParsable = MaxMenuChoice(choice);
                 if (isParsable)
                 {
                     switch (choice)
@@ -78,14 +63,14 @@ namespace Task9
                             }
                     }
                 }
-            }
+            
         }
-        private void ShowOptions()
+        private int ShowOptions()
         {
             Console.ResetColor();
-            Console.WriteLine("MENU GŁÓWNE:");
+            output.ShowMessage("MENU GŁÓWNE:");
             Console.ResetColor();
-            Console.WriteLine("1) Dodaj Statek\n"
+            return input.GetIntValue("1) Dodaj Statek\n"
                               + "2) Dodaj Broń\n"
                               + "3) Wyświetl wszystkie statki\n"
                               + "4) Wyświetl wszystkie bronie\n"
@@ -115,23 +100,18 @@ namespace Task9
         }
         private void ExecuteCase3()
         {
-            new ShipDisplay(output).GetList();
+            new ShipDisplay().GetList();
         }
         private void ExecuteCase4()
         {
-            new GunDisplay(output).GetList();
+            new GunDisplay().GetList();
         }
         private void ExecuteCase5()
         {
-            using (var db = new FactionRepository())
-            {
-                var factionList = db.GetAllFactions();
-                new FactionDisplay(output).DisplayAll((List<Faction>)factionList);
-            }
+            new FactionDisplay().GetList();
         }
         private void ExecuteCase6()
         {
-            //new Symulation(input, output).Run();
             new GatherData(input, output).Run();
         }
     }

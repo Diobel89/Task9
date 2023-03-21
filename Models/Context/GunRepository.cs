@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Task9.Interfaces;
+using Task9.Models.Context.Interfaces;
 
 namespace Task9.Models.Context
 {
@@ -31,6 +31,31 @@ namespace Task9.Models.Context
         public void Save()
         {
             context.SaveChanges();
+        }
+        public int GetMaxId()
+        {
+                return context.Guns.Count();
+        }
+        public Gun GetGun(int id)
+        {
+            Gun gun = context.Guns.FirstOrDefault(i => i.Id == id);
+            return gun;
+        }
+        public string GetName(int gunId)
+        {
+            Gun gun = context.Guns.FirstOrDefault(id => id.Id == gunId);
+            return gun.Name;
+        }
+        public bool CheckIdExists(int id)
+        {
+            foreach (var info in context.Guns)
+            {
+                if (info.Id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 

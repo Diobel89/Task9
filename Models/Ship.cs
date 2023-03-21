@@ -11,7 +11,7 @@ namespace Task9.Models
         public int Turrets { get; set; }
         public int Armor { get; set; }
         public int HP { get; set; }
-        //public int MaxSpeed { get; set; }
+        public int TypeId { get; set; }
         public int GetMaxTurrets()
         {
             return 4;
@@ -23,43 +23,6 @@ namespace Task9.Models
         public int GetMaxHP()
         {
             return 255;
-        }
-        public int GetMaxId()
-        {
-            using (var db = new DatabaseContext())
-            {
-                return db.Ships.Count();
-            }
-        }
-        public Ship GetShip(int id)
-        {
-            Ship tempShip = new Ship { };
-            using (var db = new DatabaseContext())
-            {
-                foreach (var ship in db.Ships)
-                {
-                    if (ship.Id == id)
-                    {
-                        tempShip = ship;
-                    }
-                }
-            }
-            return tempShip;
-        }
-
-        public bool CheckIdExists(int id)
-        {
-            using (var db = new DatabaseContext())
-            {
-                foreach (var info in db.Ships)
-                {
-                    if (info.Id == id)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
         }
     }
 }

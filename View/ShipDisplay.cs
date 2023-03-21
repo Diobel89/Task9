@@ -1,78 +1,50 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ConsoleTables;
 using Task9.Functions.Simulation;
-using Task9.InputOutputSystem.Interface;
 using Task9.Models;
 using Task9.Models.Context;
+using Task9.Models.Context.Interfaces;
 using Task9.View.Interface;
 
 namespace Task9.View
 {
     public class ShipDisplay : IShipDisplay
     {
-        private readonly IOutput output;
-        public ShipDisplay(IOutput output)
+        private readonly IGunRepository _gunRepository;
+        public ShipDisplay()
         {
-            this.output = output;
+            _gunRepository = new GunRepository();
         }
         public void GetList()
         {
-            using (var db = new ShipRepository())
-            {
-                var shipList = db.GetAllShips();
-                DisplayAll((List<Ship>)shipList);
-            }
+            var shipList = new ShipRepository().GetAllShips();
+            DisplayInTable((List<Ship>)shipList);
         }
-        public void DisplayAll(List<Ship> shipList)
+        private void DisplayInTable(List<Ship> shipList)
         {
-            foreach (Ship ship in shipList)
+            string factionName;
+            string gunName;
+            int totalDamage;
+            var table = new ConsoleTable(new ConsoleTableOptions
             {
-                Display(ship);
-            }
-        }
-        private void Display(Ship ship)
-        {
-            string factionName = GetFactionName(ship.FactionId);
-            string gunName = GetGunName(ship.GunId);
-            int totalDamage = new Fleet().SetTotalDamage(ship.Id);
-            var info = string.Join(" ", "ID: [" + ship.Id
-                + "]" + " Name: [" + ship.Name
-                + "]" + " Turrets: [" + ship.Turrets
-                + "]" + " Gun: [" + gunName
-                + "]" + " Armor: [" + ship.Armor
-                + "]" + " HP: [" + ship.HP
-                + "]" + " Faction: [" + factionName
-                + "]" + " Damage: [" + totalDamage
-                + "]"); 
-            output.ShowMessage(info);
-
+                Columns = new[] { "ID", "ShipName", "Main Gun", "Turrets", "Armor", "HP", "Faction", "Total Damage" },
+                EnableCount = false
+            });
+                foreach(var info in shipList)
+                {
+                    factionName = GetFactionName(info.FactionId);
+                    gunName = GetGunName(info.GunId);
+                    totalDamage = new Fleet().SetTotalDamage(info);
+                    table.AddRow(info.Id, info.Name, gunName, info.Turrets , info.Armor, info.HP, factionName, totalDamage);
+                }
+                table.Write();
         }
         private string GetFactionName(int id)
         {
-            using (var db = new DatabaseContext())
-            {
-                foreach (var info in db.Factions)
-                {
-                    if (info.Id == id)
-                    {
-                        return info.Name;
-                    }
-                }
-            }
-            return string.Empty;
+            return new FactionRepository().GetName(id);
         }
         private string GetGunName(int id)
         {
-            using (var db = new DatabaseContext())
-            {
-                foreach (var info in db.Guns)
-                {
-                    if (info.Id == id)
-                    {
-                        return info.Name;
-                    }
-                }
-            }
-            return string.Empty;
+            return _gunRepository.GetName(id);
         }
     }
 }

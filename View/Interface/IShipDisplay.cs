@@ -4,6 +4,6 @@ namespace Task9.View.Interface
 {
     public interface IShipDisplay
     {
-        void DisplayAll(List<Ship> shipList);
+        void GetList();
     }
 }

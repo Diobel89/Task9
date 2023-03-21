@@ -1,4 +1,5 @@
-﻿using Task9.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Task9.Models.Context.Interfaces;
 
 namespace Task9.Models.Context
 {
@@ -20,6 +21,37 @@ namespace Task9.Models.Context
         public void Save()
         {
             context.SaveChanges();
+        }
+        public int GetMaxId()
+        {
+            return context.Factions.Count();
+        }
+        public bool CheckIdExists(int id)
+        {
+            foreach (var info in context.Factions)
+            {
+                if (info.Id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public string GetIcon(int factionId)
+        {
+            foreach (var info in context.Factions)
+            {
+                if (info.Id == factionId)
+                {
+                    return info.Icon;
+                }
+            }
+            return "";
+        }
+        public string GetName(int factionId)
+        {
+            var info = context.Factions.FirstOrDefault(id => id.Id == factionId);
+            return info.Name;
         }
 
         private bool disposed = false;

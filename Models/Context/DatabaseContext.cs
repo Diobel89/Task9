@@ -7,6 +7,9 @@ namespace Task9.Models
         public DbSet<Ship> Ships { get; set; }
         public DbSet<Gun> Guns { get; set; }
         public DbSet<Faction> Factions { get; set; }
+        public DbSet<ShipType> ShipTypes { get; set; }
+        public DbSet<GunType> GunTypes { get; set; }
+        public DbSet<Ammo> Ammos { get; set; }
         public string DbPath { get; }
         public DatabaseContext() : base()
         {
